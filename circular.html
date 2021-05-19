@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<title>Orbital Parameter Calculation</title>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body{
+  background-image: url('isr.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+input[type = number] {
+width: 100px;
+height:15px;
+}
+label {
+  line-height :1.5;
+  width:200px;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+<center>
+<h1>Circular Orbit Calculator</h1>
+
+<form name="form">
+    <label><b>Enter radius of the earth (in km)</b></label>
+    <input type="number" name="earth_radius"></br>
+    <label><b>Enter the altitude (in km)</b></label>
+    <input type="number" name="altitude"></br>
+    <button type="button" onclick="myfunc()">Calculate</button>
+</form>
+
+<p id="a12"></p>
+<p id="a13"></p>
+<p id="a14"></p>
+<p id="a15"></p>
+<p id="a16"></p>
+</center>
+</body>
+
+<script>
+
+function myfunc() {
+	var earth_radius=document.forms["form"]["earth_radius"].value;
+	earth_radius=parseFloat(earth_radius);
+	var altitude=document.forms["form"]["altitude"].value;
+	altitude=parseFloat(altitude);	
+	var altitude = altitude + earth_radius;
+	var periapsis = altitude;
+    	var apoapsis = altitude;
+	var semi_major_axis = altitude;
+ 	var mew = 3.986004418 * 100000;
+	var eccentricity = 0;
+    	var orbital_velocity = ( ((2/altitude) - (1/semi_major_axis)) * mew ) ** 0.5;
+    	var Time_period_one_orbit = (altitude/orbital_velocity)*2*3.14;
+	var acceleration = (((orbital_velocity)**2)/altitude)*1000;
+
+	semi_major_axis=parseFloat(semi_major_axis);
+	orbital_velocity=parseFloat(orbital_velocity);
+	Time_period_one_orbit=parseFloat(Time_period_one_orbit);
+	semi_major_axis=parseFloat(semi_major_axis);
+	acceleration=parseFloat(acceleration);
+
+	document.getElementById("a12").innerHTML="Altitude = "+altitude.toFixed(2) +" km"
+	document.getElementById("a13").innerHTML="Semi Major Axis = "+semi_major_axis.toFixed(2) +" km"
+	document.getElementById("a14").innerHTML="Orbital Velocity = "+orbital_velocity.toFixed(2) +" km/s"
+	document.getElementById("a15").innerHTML="Time period of one complete orbit = "+Time_period_one_orbit.toFixed(2) +" s"
+	document.getElementById("a16").innerHTML="Acceleration = "+acceleration
+}	
+</script>
+</html>

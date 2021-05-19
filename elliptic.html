@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<title>Orbital Parameter Calculation</title>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body{
+  background-image: url('isr.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+input[type = number] {
+width: 100px;
+height:15px;
+}
+label {
+  line-height :1.5;
+  width:200px;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+<center>
+<h1>Elliptic Orbit Calculator</h1>
+<form name="form1">
+    <label><b>Enter radius of the earth (in km)</b></label>
+    <input type="number" name="earth_radius"></br>
+    <label><b>Enter the altitude (in km)</b></label>
+    <input type="number" name="altitude"></br>
+     <label><b>Enter perigee altitude (in km)</b></label>
+    <input type="number" name="periapsis"></br>
+    <label><b>Enter apogee altitude (in km)</b></label>
+    <input type="number" name="apoapsis"></br>
+    <button type="button" onclick="myfunc()">Calculate</button>
+</form>
+
+
+
+
+<p id="a1"></p>
+<p id="a2"></p>
+<p id="a3"></p>
+<p id="a4"></p>
+<p id="a5"></p>
+<p id="a6"></p>
+<p id="a7"></p>
+<p id="a8"></p>
+<p id="a9"></p>
+<p id="a10"></p>
+<p id="a11"></p>
+</center>
+</body>
+
+<script>
+function myfunc()	{
+	var earth_radius=document.forms["form1"]["earth_radius"].value;
+	earth_radius=parseFloat(earth_radius);
+	var altitude=document.forms["form1"]["altitude"].value;
+	altitude=parseFloat(altitude);
+	var periapsis=document.forms["form1"]["periapsis"].value;
+	periapsis=parseFloat(periapsis);
+	var apoapsis=document.forms["form1"]["apoapsis"].value;
+	apoapsis=parseFloat(apoapsis);
+	var altitude = altitude + earth_radius;
+    	var periapsis = periapsis + earth_radius;
+    	var apoapsis = apoapsis + earth_radius;
+    	var mew = 3.986004418 * 100000;
+    	var semi_major_axis = (periapsis + apoapsis)/2;
+    	var center_to_focus = semi_major_axis - periapsis;
+    	var eccentricity = center_to_focus / semi_major_axis;
+    	var orbital_velocity = ( ((2/altitude) - (1/semi_major_axis)) * mew ) ** 0.5;
+    	var Time_period_one_orbit = ( (4*3.14*3.14*semi_major_axis*semi_major_axis*semi_major_axis) / mew ) ** 0.5;
+    	var apogee_velocity = ( ((2/apoapsis) - (1/semi_major_axis)) * mew ) ** 0.5;
+    	var perigee_velocity = ( ((2/periapsis) - (1/semi_major_axis)) * mew ) ** 0.5;
+    	var Time_apoapsis = apoapsis / apogee_velocity;
+    	var Time_periapsis = periapsis / perigee_velocity;
+	semi_major_axis=parseFloat(semi_major_axis);
+	eccentricity=parseFloat(eccentricity);
+	orbital_velocity=parseFloat(orbital_velocity);
+	Time_period_one_orbit=parseFloat(Time_period_one_orbit);
+	apogee_velocity=parseFloat(apogee_velocity);
+	perigee_velocity=parseFloat(perigee_velocity);	
+	Time_periapsis=parseFloat(Time_periapsis);
+	Time_apoapsis=parseFloat(Time_apoapsis);
+
+	document.getElementById("a1").innerHTML="Altitude = "+altitude.toFixed(2) +" km"
+	document.getElementById("a2").innerHTML="periapsis = "+periapsis.toFixed(2) +" km"
+	document.getElementById("a3").innerHTML="Apoapsis = "+apoapsis.toFixed(2) +" km"
+	document.getElementById("a4").innerHTML="Semi Major Axis = "+semi_major_axis.toFixed(2) +" km"
+	document.getElementById("a5").innerHTML="Eccentricity = "+eccentricity
+	document.getElementById("a6").innerHTML="Orbital Velocity = "+orbital_velocity.toFixed(2) +" km/s"
+	document.getElementById("a7").innerHTML="Time period of one complete orbit = "+Time_period_one_orbit.toFixed(2) +" s"
+	document.getElementById("a8").innerHTML="Perigee Velocity = "+perigee_velocity.toFixed(2) +" km/s"
+	document.getElementById("a9").innerHTML="Apogee Velocity = "+apogee_velocity.toFixed(2) +" km/s"
+	document.getElementById("a10").innerHTML="Time Period of Apoapsis = "+Time_apoapsis.toFixed(2) +" s"
+	document.getElementById("a11").innerHTML="Time Period of Periapsis = "+Time_periapsis.toFixed(2) +" s"
+}
+	
+</script>
+</html>
